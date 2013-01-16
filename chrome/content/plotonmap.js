@@ -30,7 +30,7 @@ var plotonmap_f7e44ddb_51de_4979_8c3c_0c4585f20bef;
 
 (function(){
 	try{
-		var DEBUG = true;
+		var DEBUG = false;
 
 		var ID = "plotonmap_f7e44ddb_51de_4979_8c3c_0c4585f20bef";
 		
