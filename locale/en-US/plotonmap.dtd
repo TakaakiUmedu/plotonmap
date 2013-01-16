@@ -1,0 +1,4 @@
+<!ENTITY plotonmap.search_word "RegExp representing addresses">
+<!ENTITY plotonmap.max_depth "Subtree depth">
+<!ENTITY plotonmap.anchor_index "Index of &lt;a&gt;">
+<!ENTITY plotonmap.address_setting "Address search setting">

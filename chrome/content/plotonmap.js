@@ -16,7 +16,7 @@ modification, are permitted provided that the following conditions are met:
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
 WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL TAKAAKI Umedu BE LIABLE FOR ANY
+DISCLAIMED. IN NO EVENT SHALL TAKAAKI UMEDU BE LIABLE FOR ANY
 DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
 (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
 LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
@@ -25,13 +25,15 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
+// using GUID to avoid conflict
 var plotonmap_f7e44ddb_51de_4979_8c3c_0c4585f20bef;
 
 (function(){
 	try{
-		var DEBUG = false;
+		var DEBUG = true;
 
 		var ID = "plotonmap_f7e44ddb_51de_4979_8c3c_0c4585f20bef";
+		
 		function log(message){
 			if(DEBUG){
 				alert(message);
@@ -70,8 +72,10 @@ var plotonmap_f7e44ddb_51de_4979_8c3c_0c4585f20bef;
 		function escape_number(number){
 			return ("" + number).replace(/[^0-9]/g, "");
 		}
+		var bundle;
 		function initialize(){
 			try{
+				bundle = document.getElementById(ID + "-messages"); 
 				var win = window.openDialog("chrome://" + ID + "/content/dialog.xul", "Preferences", "chrome,titlebar,toolbar,centerscreen,modal","dialog");
 				if(win.plotonmap_f7e44ddb_51de_4979_8c3c_0c4585f20bef_accept){
 					var branch_name = "extensions." + ID + "."
@@ -103,11 +107,18 @@ var plotonmap_f7e44ddb_51de_4979_8c3c_0c4585f20bef;
 						open_map_window(target_window.document.body, search_word, max_depth, anchor_index);
 					}else{
 						pref_service.deleteBranch(branch_name);
-						alert("設定を削除しました");
+						alert(get_bundle_string("CONFIG_DELETED"));
 					}
 				}
 			}catch(e){
 				log(e);
+			}
+		}
+		function get_bundle_string(name){
+			try{
+				return bundle.getString(name);
+			}catch(e){
+				log("cannot get bundle :" + name + " : " + e);
 			}
 		}
 		function find_element(element, checker){
@@ -248,7 +259,7 @@ var plotonmap_f7e44ddb_51de_4979_8c3c_0c4585f20bef;
 				try{
 					search_regexp = new RegExp(search_word);
 				}catch(e){
-					alert("正規表現のコンパイルエラー : " + e);
+					alert(get_bundle_string("COMPILE_ERROR") + " : " + e);
 					return;
 				}
 
@@ -266,6 +277,12 @@ var plotonmap_f7e44ddb_51de_4979_8c3c_0c4585f20bef;
 							}
 							return e;
 						}
+						
+						var elements_to_be_localized = subwindow.document.getElementsByClassName("localize");
+						for(var i = 0; i < elements_to_be_localized.length; i ++){
+							elements_to_be_localized[i].appendChild(ct(get_bundle_string(elements_to_be_localized[i].id)));
+						}
+						
 						subwindow.document.getElementById("search_word").appendChild(ct(search_word));
 						var targets = listup_targets(target_element, search_regexp, max_depth, anchor_index);
 						var ul = ce("ul");
@@ -273,7 +290,7 @@ var plotonmap_f7e44ddb_51de_4979_8c3c_0c4585f20bef;
 							var target = targets[i];
 							var li = ce("li");
 							li.className = "result";
-							var span = ce("span", "検索中");
+							var span = ce("span", get_bundle_string("SEARCHING"));
 							span.className = "state";
 							li.appendChild(span);
 							li.appendChild(ct(" : "));
@@ -291,13 +308,15 @@ var plotonmap_f7e44ddb_51de_4979_8c3c_0c4585f20bef;
 							ul.appendChild(li);
 						}
 						subwindow.document.body.appendChild(ul);
-						var p = ce("p", "全" + targets.length + "件");
+						var p = ce("p", get_bundle_string("TOTAL_HITS").replace(/%s/, "" + targets.length));
 						p.id = "completed";
 						subwindow.document.body.appendChild(p);
 					}catch(e){
 						log(e);
 					}
 				}
+				
+				// postMessage does not work on XUL windows. So the scripts use DOM modification and polling of check for inter-window communication instead.
 				function wait_for_load(){
 					try{
 						if(subwindow.document && subwindow.document.getElementById && subwindow.document.getElementById("loaded")){

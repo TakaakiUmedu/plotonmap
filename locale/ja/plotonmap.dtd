@@ -1,0 +1,4 @@
+<!ENTITY plotonmap.search_word "住所と見なす文字列を表す正規表現">
+<!ENTITY plotonmap.max_depth "サブツリーの深さ">
+<!ENTITY plotonmap.anchor_index "何個目のa要素を拾うか">
+<!ENTITY plotonmap.address_setting "住所検索設定">

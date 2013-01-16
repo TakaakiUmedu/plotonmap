@@ -1,0 +1,26 @@
+
+A FireFox addon that searchs address-like strings in an html and plot them onto GoogleMaps opened in a new window.
+This addon appends "plotonmap" command into context-menu.
+
+This software is just a trial product, which is not carefully written, 
+seems to be runnable in the author's environment(FireFox ver. 18.0 on Windows) following the author's expectation
+and published as-it-is under so-called BSD license. The author does not guarantee anything.
+
+"install.rdf" says this addon suppors FireFox ver. 10.0 to 40.*.
+However, this specification does not have any valid reason. It is set just for convenience.
+
+For usage, see chrome/content/usage.html (in Japanese) or source codes.
+
+
+
+HTMLから住所っぽい文字列を検索して、別ウィンドウで開いたGoogleMaps上へプロットするFireFoxアドオン。
+コンテキストメニューに「plotonmap」コマンドを追加する。
+
+このソフトウェアは試しに作ってみたもので、詳しく調べずに作成されており、
+作者の環境(FireFox ver. 18.0, Windows)上で作者の期待通りに動作するようなので、
+いわゆるBSDライセンスに基づきそのままの形で公開する。作者は一切何も保証しない。
+
+"install.rdf"上にはFireFox ver. 10.0から40.*までサポートすると記載してあるが、
+特にこの設定に根拠は無い。ただ、便利だからそのように設定した。
+
+使い方はchrome/content/usage.htmlかソースコードを参照。

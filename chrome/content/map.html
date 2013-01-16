@@ -17,7 +17,7 @@ modification, are permitted provided that the following conditions are met:
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
 WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL TAKAAKI Umedu BE LIABLE FOR ANY
+DISCLAIMED. IN NO EVENT SHALL TAKAAKI UMEDU BE LIABLE FOR ANY
 DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
 (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
 LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
@@ -28,14 +28,16 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 <html lang="ja">
 <head>
 <meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
-<title>Map</title>
+<title>plotonmap</title>
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 <script type="text/javascript" src="chrome://plotonmap_f7e44ddb_51de_4979_8c3c_0c4585f20bef/content/map.js"></script>
 </head>
 <body>
 
-<p>検索対象:<q><span id="search_word"></span></q> [<a href="usage.html" target="_blank">使い方</a>]</p>
+<p><span id="SEARCH_WORD_LABEL" class="localize"></span>:<q><span id="search_word"></span></q> [<a href="usage.html" target="_blank" id="USAGE_LABEL" class="localize"></a>]</p>
 <div id="map_canvas" style="width:1024px; height:640px;"></div>
+
+<p style="display:none;"><span id="SEARCH_ERROR" class="localize"></span><span id="JUMP_TO_MARKER" class="localize"></span></p>
 
 </body>
 </html>

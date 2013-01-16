@@ -17,7 +17,7 @@ modification, are permitted provided that the following conditions are met:
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
 WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL TAKAAKI Umedu BE LIABLE FOR ANY
+DISCLAIMED. IN NO EVENT SHALL TAKAAKI UMEDU BE LIABLE FOR ANY
 DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
 (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
 LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
@@ -27,6 +27,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 <overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
   <script type="application/x-javascript" encoding="utf-8" src="chrome://plotonmap_f7e44ddb_51de_4979_8c3c_0c4585f20bef/content/plotonmap.js" />
+  <stringbundleset id="stringbundleset">
+    <stringbundle id="plotonmap_f7e44ddb_51de_4979_8c3c_0c4585f20bef-messages" src="chrome://plotonmap_f7e44ddb_51de_4979_8c3c_0c4585f20bef/locale/plotonmap.properties" />
+  </stringbundleset>
   <popup id="contentAreaContextMenu">
     <menuitem id="plotonmap-menu" label="plotonmap" oncommand="plotonmap_f7e44ddb_51de_4979_8c3c_0c4585f20bef.initialize();" />
   </popup>

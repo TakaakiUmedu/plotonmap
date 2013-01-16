@@ -17,7 +17,7 @@ modification, are permitted provided that the following conditions are met:
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
 WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL TAKAAKI Umedu BE LIABLE FOR ANY
+DISCLAIMED. IN NO EVENT SHALL TAKAAKI UMEDU BE LIABLE FOR ANY
 DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
 (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
 LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
@@ -26,7 +26,8 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 <?xml-stylesheet href="chrome://global/skin/global.css" type="text/css"?>
-<prefwindow title="住所検索設定" bottons="accept,cancel,help" id="dialog" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+<!DOCTYPE prefwindow SYSTEM "chrome://plotonmap_f7e44ddb_51de_4979_8c3c_0c4585f20bef/locale/plotonmap.dtd">
+<prefwindow title="&plotonmap.address_setting;" bottons="accept,cancel,help" id="dialog" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
  ondialogaccept="window.plotonmap_f7e44ddb_51de_4979_8c3c_0c4585f20bef_accept = true; return true;"
  ondialogcancel="window.plotonmap_f7e44ddb_51de_4979_8c3c_0c4585f20bef_accept = false; return true;"
  ondialoghelp ="window.open('usage.html'); return false;">
@@ -37,11 +38,11 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
       <preference id="anchor_index" name="extensions.plotonmap_f7e44ddb_51de_4979_8c3c_0c4585f20bef.anchor_index" type="int"/>
     </preferences>
     <vbox>
-      <label value="住所と見なす文字列を表す正規表現"/>
+      <label value="&plotonmap.search_word;"/>
       <textbox preference="search_word"/>
-      <label value="サブツリーの深さ"/>
+      <label value="&plotonmap.max_depth;"/>
       <textbox preference="max_depth"/>
-      <label value="何個目のa要素を拾うか"/>
+      <label value="&plotonmap.anchor_index;"/>
       <textbox preference="anchor_index"/>
     </vbox>
   </prefpane>
