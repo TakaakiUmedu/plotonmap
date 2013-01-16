@@ -1,5 +1,5 @@
 
-A FireFox addon that searchs address-like strings in an html and plot them onto GoogleMaps opened in a new window.
+A FireFox addon that searches address-like strings in an html and plot them onto GoogleMaps opened in a new window.
 This addon appends "plotonmap" command into context-menu.
 
 This software is just a trial product, which is not carefully written, 
