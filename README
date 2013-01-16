@@ -1,3 +1,4 @@
+https://github.com/TakaakiUmedu/plotonmap
 
 A FireFox addon that searches address-like strings in an html and plot them onto GoogleMaps opened in a new window.
 This addon appends "plotonmap" command into context-menu.
