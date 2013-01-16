@@ -1,0 +1,2 @@
+content plotonmap_f7e44ddb_51de_4979_8c3c_0c4585f20bef chrome/content/ contentaccessible=yes
+overlay chrome://browser/content/browser.xul chrome://plotonmap_f7e44ddb_51de_4979_8c3c_0c4585f20bef/content/plotonmap.xul

@@ -1,0 +1,89 @@
+<!DOCTYPE HTML>
+<!--
+Copyright (c) 2013, Takaaki Umedu
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+    * Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+    * Neither the name of Takaaki Umedu nor the
+      names of its contributors may be used to endorse or promote products
+      derived from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL TAKAAKI Umedu BE LIABLE FOR ANY
+DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+-->
+<html lang="ja">
+<head>
+<meta HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<title>plotonmap使い方</title>
+</head>
+<body>
+
+<h1>plotonmap 使い方</h1>
+<ul>
+<li>ページ内の<q>住所っぽい文字列</q>を探し、その場所を別ウィンドウで開いたGoogleMap上にプロットする</li>
+<li>どのような文字列を<q>住所っぽい文字列</q>とするかは<q>住所と見なす文字列を表す正規表現</q>で指定する
+<ul>
+ <li>正規表現が<q>()</q>を含む場合、1個目の<q>()</q>内にヒットした部分(すなわち、<code>RegExp.$1</code>)が住所と見なされる</li>
+ <li><q>()</q>にマッチが無ければマッチした文字列全体を住所とする</li>
+ <li>例:
+ <ul>
+  <li><q>大阪.*</q>: <q>大阪</q>で始まる文字列</li>
+  <li><q>住所:(.*)</q>: <q>住所:</q>に続く文字列</li>
+  <li><q>(?:大阪|兵庫).*</q>: <q>大阪</q>もしくは<q>兵庫</q>から始まる文字列</li>
+ </ul></li>
+ <li>検索はテキストノード単位で行うため、複数のテキストノードや、<code>span</code>などの他の要素にまたがって住所が書かれている場合にはヒットしない</li>
+</ul></li>
+<li>見つかった<q>住所っぽい文字列</q>を含む、DOMのサブツリーを1個の<q>情報ブロック</q>として扱う
+<ul>
+ <li>見つかった<q>住所っぽい文字列</q>を含むテキストノードから下記3つの条件を満たす範囲で親ノードを辿って、<q>情報ブロック</q>とするサブツリーを決定する
+ <ul>
+  <li>そのサブツリーが他の<q>住所っぽい文字列</q>に該当するテキストノードを含まない</li>
+  <li>親が<code>body</code>の階層まで遡った場合、そこで打ち切られる</li>
+  <li>遡る処理は、<q>サブツリーの深さ</q>が0に設定されている場合は、前述の2つの条件で打ち切られるまで続けられる。
+      <q>サブツリーの深さ</q>が1以上の場合は、<q>住所っぽい文字列</q>がサブツリーの<q>サブツリーの深さ</q>階層以下になる範囲でのみ行われる</li>
+ </ul></li>
+ <li>例:(<q>サブツリーの深さ</q>が0の場合)
+ <ul>
+  <li><code>table</code>の各行に1個ずつ住所が含まれる場合 → 各行を表す<code>tr</code>が<q>情報ブロック</q>となる</li>
+  <li><code>ul</code>や<code>ol</code>の各項目に1個ずつ住所が含まれる場合 → 各項目を表す<code>li</code>が<q>情報ブロック</q>となる</li>
+  <li>文書内に1つしか<q>住所っぽい文字列</q>が見つからなかった場合 → <code>body</code>の直下、その文字列を含む要素全体が<q>情報ブロック</q>となる</li>
+  <li><q>サブツリーの深さ</q>が1の場合 → 該当するテキストノードのみが<q>情報ブロック</q>となる</li>
+ </ul></li>
+ <li>情報ブロックが大きくなりすぎる場合は、<q>サブツリーの深さ</q>を用いて適当に調整すれば良い</li>
+</ul></li>
+<li><q>情報ブロック</q>内の<code>a</code>要素を、そのブロックのリンク先とする
+<ul>
+ <li>各<q>情報ブロック</q>内にリンク先が複数存在する場合は、サブツリーを辿った際に何番目に登場する<code>a</code>要素のリンク先をそれとして扱うかを、<q>何個目のa要素を拾うか</q>で指定できる</li>
+ <li>0以下を指定した場合には、リンクは拾われない</li>
+ <li><q>何個目のa要素を拾うか</q>はデフォルトでは<code>1</code>で、最初に出てきた<code>a</code>のリンク先がその<q>情報ブロック</q>のリンク先となる</li>
+</ul></li>
+<li>同じ住所(文字列が等しい)は<q>情報ブロック</q>は1個のマーカーに纏められ、そのマーカーを1回クリックすれば全部開く</li>
+<li>検索結果が同じ座標になったマーカーは、重なって表示され、より下に描画されているマーカーはクリックできない。その場合は、マップ下の一覧からリンク先へ飛べる。
+    可能であれば<q>住所と見なす文字列を表す正規表現</q>を修正して、それらが1個の住所になるよう、範囲調整をしてもよい</li>
+<li>プロット終了後、重心位置ぐらいへマップを移動する
+<ul>
+ <li>例えば、検索結果が<q>東京</q>と<q>大阪</q>を含むような場合は、名古屋か静岡辺りの地図が表示されることになる</li>
+ <li>そのような場合には下のリストから<q>マーカーへジャンプ</q>をクリックしてマーカーを見つければよい</li>
+</ul></li>
+<li>検索に使った設定はFireFoxの設定内に記録され、次回の初期値となる
+<ul>
+ <li>空文字列<q></q>を指定すると設定を削除する。アンインストール前にやっておけばゴミは残らなない</li>
+</ul></li>
+</ul>
+
+</body>
+</html>
