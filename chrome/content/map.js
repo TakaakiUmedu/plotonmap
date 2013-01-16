@@ -16,7 +16,7 @@ modification, are permitted provided that the following conditions are met:
 THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
 WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL TAKAAKI Umedu BE LIABLE FOR ANY
+DISCLAIMED. IN NO EVENT SHALL TAKAAKI UMEDU BE LIABLE FOR ANY
 DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
 (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
 LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
@@ -51,7 +51,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 			}
 			var m = document.createElement("a");
 			m.href = "#map";
-			m.appendChild(document.createTextNode("マーカーへジャンプ"));
+			m.appendChild(document.createTextNode(document.getElementById("JUMP_TO_MARKER").firstChild.nodeValue));
 			m.addEventListener("click", function(event){
 				map.panTo(marker.position);
 				event.preventDefault();
@@ -155,7 +155,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 						}else{
 							for(var i = 0; i < info_list.length; i ++){
 								var span = info_list[i].state;
-								span.firstChild.nodeValue = "住所が見つかりませんでした(エラーコード: " + status + ")";
+								span.firstChild.nodeValue = document.getElementById("SEARCH_ERROR").firstChild.nodeValue.replace(/%s/, status);
 								span.style.color = "red";
 							}
 						}
@@ -207,8 +207,6 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 		}
 		
 		function initialize(){
-			set_toggles("toggle");
-			
 			var opts = {
 				zoom: 15,
 				center: new google.maps.LatLng(34.819476,135.523825),
@@ -216,36 +214,12 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 			};
 			map = new google.maps.Map(document.getElementById("map_canvas"), opts);
 
+			// postMessage does not work on XUL windows. So the scripts use DOM modification and polling of check for inter-window communication instead.
 			wait_for_completed();
-
 			var div = document.createElement("div");
 			div.id = "loaded";
 			document.body.appendChild(div);
 			
-		}
-		function toggle(event, id){
-			var e = document.getElementById(id);
-			if(e && e.style){
-				if(e.style.display == "none"){
-					e.style.display = "block";
-				}else{
-					e.style.display = "none";
-				}
-				event.preventDefault();
-			}
-		}
-		function set_toggles(className){
-			var as = document.getElementsByClassName(className);
-	
-			for(var i = 0; i < as.length; i ++){
-				var a = as[i];
-				if(a.href && a.href.match(/#/)){
-					var id = RegExp.rightContext;
-					if(document.getElementById(id)){
-						a.addEventListener("click", function(event){ toggle(event, id); }, false);
-					}
-				}
-			}
 		}
 		
 		window.addEventListener("load", initialize, false);

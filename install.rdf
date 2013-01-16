@@ -4,7 +4,7 @@
   <Description about="urn:mozilla:install-manifest">
     <em:id>{F7E44DDB-51DE-4979-8C3C-0C4585F20BEF}</em:id>
     <em:name>plotonmap</em:name>
-    <em:version>0.9.2</em:version>
+    <em:version>0.9.3</em:version>
     <em:description>
 ページ内の全ての住所っぽい部分を検出し、別ウィンドウで開いたGoogleMaps上の該当住所にマーカーをプロットする「plotonmap」コマンドを、右クリックで開くコンテキストメニューに追加する。
 何をもって「住所っぽい部分」と見なすかは実行時にユーザが正規表現で指定する。

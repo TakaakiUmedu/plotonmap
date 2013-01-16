@@ -1,2 +1,5 @@
 content plotonmap_f7e44ddb_51de_4979_8c3c_0c4585f20bef chrome/content/ contentaccessible=yes
 overlay chrome://browser/content/browser.xul chrome://plotonmap_f7e44ddb_51de_4979_8c3c_0c4585f20bef/content/plotonmap.xul
+locale plotonmap_f7e44ddb_51de_4979_8c3c_0c4585f20bef en-US locale/en-US/
+locale plotonmap_f7e44ddb_51de_4979_8c3c_0c4585f20bef ja locale/ja/
+locale plotonmap_f7e44ddb_51de_4979_8c3c_0c4585f20bef ja-JP-mac locale/ja/
